@@ -96,11 +96,11 @@ while true; do
   read -r answer
   case "$answer" in
     [Yy]* )
-      theme_name="Onimai"
+      theme_name="onimai"
       break
       ;;
     [Nn]* )
-      theme_name="Onimai_no_menu"
+      theme_name="onimai_no_menu"
       break
       ;;
     * )
