@@ -141,11 +141,11 @@ mkdir -p "$dst" || die "Cannot create destination directory: $dst"
 
 # Copy
 prompt -i "Installing theme '${theme_name}'...\n"
-if [[ ! -d "./${theme_name}" ]]; then
-  die "Cannot find theme source directory './${theme_name}/'. Are you in the project repository root directory?"
+if [[ ! -d "./themes/${theme_name}" ]]; then
+  die "Cannot find theme source directory './themes/${theme_name}/'. Are you in the project repository root directory?"
 fi
 
-cp -a "./${theme_name}/"* "$dst/" || die "Failed to copy theme source."
+cp -a "./themes/${theme_name}/"* "$dst/" || die "Failed to copy theme source."
 
 # Back up GRUB configuration
 if [[ ! -f "$GRUB_BAK" ]]; then
