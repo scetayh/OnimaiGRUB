@@ -1,6 +1,8 @@
 desktop-image: "background.png"
 
 title-text: " "
+message-font: "Anime Ace 2.0 BB Regular 16"
+terminal-font: "GNU Unifont Regular 16"
 
 + image {
     top = 15%
@@ -11,8 +13,7 @@ title-text: " "
 }
 
 + label {
-    font = "Anime-font-en.pf2"
-    font = "Anime-font-ru.pf2"
+    font = "Anime Ace 2.0 BB Regular 16"
     color = "#99C6FF"
     left = 50%-200
     top = 15%
@@ -23,8 +24,7 @@ title-text: " "
 
 + label {
     text = " "
-    font = "Anime-font-en.pf2"
-    font = "Anime-font-ru.pf2"
+    font = "Anime Ace 2.0 BB Regular 16"
     color = "#F3F3F3"
     top = 30%-30
     left = 50%-80
@@ -45,8 +45,7 @@ title-text: " "
     item_icon_space = 12
     item_spacing = 8
     menu_pixmap_style = "boot_menu_*.png"
-    item_font = "Anime-font-en.pf2"
-    item_font = "Anime-font-ru.pf2"
+    item_font = "Anime Ace 2.0 BB Regular 16"
     item_color = "#EDEDED"
     selected_item_color = "#E3B0AF"
     selected_item_pixmap_style = "select_bkg_*.png"
@@ -59,10 +58,10 @@ title-text: " "
     id = "__timeout__"
     left = 0%
     width = 100%
-    top = 100%
+    top = 100%-23
     height = 23
     show_text = true
-    text_color = "255, 255, 255"
+    text_color = "#FFFFFF"
     bar_style = "progress_bar_*.png"
     highlight_style = "progress_highlight_*.png"
 }
