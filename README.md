@@ -1,10 +1,17 @@
-# **Oniichan wa Oshimai!** GRUB theme v0.3.1
+# **Oniichan wa Oshimai!** GRUB theme v0.4.0
 
-![Onimai (without menu) theme preview](/themes/onimai/preview/preview.png)
+![Onimai (without option menu) theme preview](/themes/onimai/preview/preview.png)
 
 <p align="right">— Only for true fans of <i>Oniichan wa Oshimai!</i></p>
 
 ## What's new?
+
+- Formatted theme.txt
+- Changed **terminal font** to Unifont which is easier to read (Anime font as **message font** preserved in boot menu)
+- Added QEMU test script to preview the GRUB theme
+- Merged themes with/without option menu together and unified the theme name
+
+In 0.3.1:
 
 - Enhanced robustness of install/uninstall scripts
 - Formatted output
