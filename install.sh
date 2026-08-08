@@ -5,7 +5,7 @@ set -o pipefail
 
 # Constants
 
-readonly THEME_DIR="/usr/share/grub/themes"
+readonly THEME_DIR="/usr/share/grub/themes/onimai"
 readonly GRUB_FILE="/etc/default/grub"
 readonly GRUB_BAK="${GRUB_FILE}.bak"
 # Regular
@@ -96,11 +96,11 @@ while true; do
   read -r answer
   case "$answer" in
     [Yy]* )
-      theme_name="onimai"
+      option_menu=1
       break
       ;;
     [Nn]* )
-      theme_name="onimai_no_menu"
+      option_menu=0
       break
       ;;
     * )
@@ -127,25 +127,32 @@ while true; do
   esac
 done
 
-# Prepare the destination
-prompt -i "Checking destination directory...\n"
-dst="${THEME_DIR}/${theme_name}"
-
 # Ensure a clean installation
-if [[ -d "$dst" ]]; then
-  prompt -w "Warning: Destination directory '$dst' exists. Removing...\n"
-  rm -rf "$dst" || die "Cannot remove destination directory: $dst"
+prompt -i "Checking destination directory...\n"
+if [[ -d "$THEME_DIR" ]]; then
+  prompt -w "Warning: Destination directory '$THEME_DIR' exists. Removing...\n"
+  rm -rf "$THEME_DIR" || die "Cannot remove destination directory: $THEME_DIR"
 fi
 
-mkdir -p "$dst" || die "Cannot create destination directory: $dst"
+mkdir -p "$THEME_DIR" || die "Cannot create destination directory: $THEME_DIR"
 
 # Copy
-prompt -i "Installing theme '${theme_name}'...\n"
-if [[ ! -d "./themes/${theme_name}" ]]; then
-  die "Cannot find theme source directory './themes/${theme_name}/'. Are you in the project repository root directory?"
+prompt -i "Installing...\n"
+if [[ ! -d "./themes/onimai" ]]; then
+  die "Cannot find theme source directory './themes/onimai/'. Are you in the project repository root directory?"
 fi
+cp -a "./themes/onimai/"* "$THEME_DIR/" || die "Failed to copy theme source."
 
-cp -a "./themes/${theme_name}/"* "$dst/" || die "Failed to copy theme source."
+# Append option menu configuration (if needed)
+if [ $option_menu -eq 1 ]; then
+  prompt -i "Adding an option menu to the theme...\n"
+  {
+    echo
+    cat "$THEME_DIR/option_menu.txt"
+  } >> "$THEME_DIR/theme.txt" || {
+    prompt -w "Failed to append option menu configuration. You may need to add it manually.\n"
+  }
+fi
 
 # Back up GRUB configuration
 if [[ ! -f "$GRUB_BAK" ]]; then
@@ -155,12 +162,11 @@ if [[ ! -f "$GRUB_BAK" ]]; then
 fi
 
 # Set GRUB theme
-new_theme_line="GRUB_THEME=\"${dst}/theme.txt\""
+new_theme_line="GRUB_THEME=\"${THEME_DIR}/theme.txt\""
 if grep -q "^GRUB_THEME=" "$GRUB_FILE" 2>/dev/null; then
   sed -i "s|^GRUB_THEME=.*|$new_theme_line|" "$GRUB_FILE" || die "Failed to edit '$GRUB_FILE'."
 else
   {
-  echo
   echo "$new_theme_line"
   } >> "$GRUB_FILE" || die "Failed to edit '$GRUB_FILE'."
 fi

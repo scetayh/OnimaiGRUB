@@ -5,7 +5,7 @@ set -o pipefail
 
 # Constants
 
-readonly THEME_DIR="/usr/share/grub/themes"
+readonly THEME_DIR="/usr/share/grub/themes/onimai"
 readonly GRUB_FILE="/etc/default/grub"
 readonly GRUB_BAK="${GRUB_FILE}.bak"
 # Regular
@@ -90,28 +90,28 @@ fi
 # Welcome
 prompt -s "\n\t\tOniichan wa Oshimai! GRUB theme uninstaller\n\t\t\tby zenith-chan\n\n"
 
-# Check which theme variant was installed
-while true; do
-  prompt -i "Did you install the theme with the option menu? [Y/N] "
-  read -r answer
-  case "$answer" in
-    [Yy]* )
-      theme_name="onimai"
-      break
-      ;;
-    [Nn]* )
-      theme_name="onimai_no_menu"
-      break
-      ;;
-    * )
-      prompt -w "Sorry, response '$answer' not understood.\n"
-      ;;
-  esac
-done
+# # Check which theme variant was installed
+# while true; do
+#   prompt -i "Did you install the theme with the option menu? [Y/N] "
+#   read -r answer
+#   case "$answer" in
+#     [Yy]* )
+#       theme_name="onimai"
+#       break
+#       ;;
+#     [Nn]* )
+#       theme_name="onimai_no_menu"
+#       break
+#       ;;
+#     * )
+#       prompt -w "Sorry, response '$answer' not understood.\n"
+#       ;;
+#   esac
+# done
 
 # Confirm uninstallation
 while true; do
-  prompt -i "Are you sure you want to uninstall? [Y/N] "
+  prompt -i "Are you sure to uninstall? [Y/N] "
   read -r answer
   case "$answer" in
     [Yy]* )
@@ -128,10 +128,9 @@ while true; do
 done
 
 # Delete theme directory
-theme_path="${THEME_DIR}/${theme_name}"
-prompt -i "Removing theme directory '${theme_path}'...\n"
-if [[ -d "$theme_path" ]]; then
-  rm -rf "$theme_path" || die "Failed to remove theme directory: $theme_path"
+prompt -i "Removing theme directory '${THEME_DIR}'...\n"
+if [[ -d "$THEME_DIR" ]]; then
+  rm -rf "$THEME_DIR" || die "Failed to remove theme directory: $THEME_DIR"
 else
   prompt -w "Warning: Theme directory not found, skipping...\n"
 fi
